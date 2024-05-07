@@ -1,4 +1,4 @@
-from efficient_kan import KAN
+from efficient_kant import KANT
 
 # Train on MNIST
 import torch
@@ -23,7 +23,7 @@ trainloader = DataLoader(trainset, batch_size=64, shuffle=True)
 valloader = DataLoader(valset, batch_size=64, shuffle=False)
 
 # Define model
-model = KAN([28 * 28, 64, 10])
+model = KANT([28 * 28, 64, 10])
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 # Define optimizer
@@ -45,7 +45,11 @@ for epoch in range(10):
             loss.backward()
             optimizer.step()
             accuracy = (output.argmax(dim=1) == labels.to(device)).float().mean()
-            pbar.set_postfix(loss=loss.item(), accuracy=accuracy.item(), lr=optimizer.param_groups[0]['lr'])
+            pbar.set_postfix(
+                loss=loss.item(),
+                accuracy=accuracy.item(),
+                lr=optimizer.param_groups[0]["lr"],
+            )
 
     # Validation
     model.eval()
@@ -65,6 +69,4 @@ for epoch in range(10):
     # Update learning rate
     scheduler.step()
 
-    print(
-        f"Epoch {epoch + 1}, Val Loss: {val_loss}, Val Accuracy: {val_accuracy}"
-    )
+    print(f"Epoch {epoch + 1}, Val Loss: {val_loss}, Val Accuracy: {val_accuracy}")

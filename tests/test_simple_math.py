@@ -2,11 +2,11 @@ import torch
 import torch.nn as nn
 from tqdm import tqdm
 
-from efficient_kan import KAN
+from efficient_kant import KANT
 
 
 def test_mul():
-    kan = KAN([2, 2, 1], base_activation=nn.Identity)
+    kan = KANT([2, 2, 1], base_activation=nn.Identity)
     optimizer = torch.optim.LBFGS(kan.parameters(), lr=1)
     with tqdm(range(100)) as pbar:
         for i in pbar:
