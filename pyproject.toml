@@ -1,9 +1,9 @@
 [project]
-name = "efficient-kan"
+name = "efficient-kant"
 version = "0.1.0"
-description = "An efficient pure-PyTorch implementation of Kolmogorov-Arnold Network (KAN)."
+description = "An efficient pure-PyTorch implementation of Kolmogorov-Arnold Network (KAN) with Chebyshev polynomials"
 authors = [
-    {name = "Blealtan Cao", email = "blealtan@outlook.com"},
+    {name = "Blealtan Cao", email = "blealtan@outlook.com"}, {name = "Tom Whitehead", email = "thomas.whitehead1991@gmail.com"}
 ]
 dependencies = [
     "torch>=2.3.0",

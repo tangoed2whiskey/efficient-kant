@@ -23,7 +23,7 @@ trainloader = DataLoader(trainset, batch_size=64, shuffle=True)
 valloader = DataLoader(valset, batch_size=64, shuffle=False)
 
 # Define model
-model = KANT([28 * 28, 64, 10])
+model = KANT([28 * 28, 10], cheby_order=10)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 # Define optimizer
@@ -42,7 +42,8 @@ for epoch in range(10):
             optimizer.zero_grad()
             output = model(images)
             loss = criterion(output, labels.to(device))
-            loss.backward()
+            reg_loss = model.regularization_loss(1e-5, regularization_scaling=0.1)
+            (loss + reg_loss).backward()
             optimizer.step()
             accuracy = (output.argmax(dim=1) == labels.to(device)).float().mean()
             pbar.set_postfix(
