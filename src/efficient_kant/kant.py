@@ -62,7 +62,7 @@ class KANTLinear(torch.nn.Module):
 
         if not self.final_layer:
             # Ensure that Chebyshev polynomial is between -1 and 1 and does not explode
-            spline_output = (
+            _output = (
                 torch.einsum(
                     "cbi,oic->bo",
                     self.chebyshev_bases(x),
@@ -72,10 +72,10 @@ class KANTLinear(torch.nn.Module):
                 / self.out_features
             )
         else:
-            spline_output = torch.einsum(
+            _output = torch.einsum(
                 "cbi,oic->bo", self.chebyshev_bases(x), self.cheby_weight
             )
-        return spline_output.contiguous()
+        return _output.contiguous()
 
     def regularization_loss(
         self,
